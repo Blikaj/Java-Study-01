@@ -12,12 +12,12 @@ import static java.lang.Integer.parseInt;
 public class ClerkEXE {
 
     public static void main(String[] args) {
-        ArrayList<Clerk> clerkArrayList;
-        Scanner in = new Scanner(System.in);
+        ArrayList<Clerk> clerkArrayList; ///ArrayList for Clerk class, can be filled from converted string array if needed, but I will use only string arrays
+        Scanner in = new Scanner(System.in); /// Scanner for input commands
         clerkArrayList = new ArrayList<>();
-        ArrayList<String> tmpclerk = new ArrayList<String>();
-        String ch = "-1";
-        try (FileReader reader = new FileReader("C:\\Users\\Bocus\\IdeaProjects\\Java-Study-01\\src\\main\\java\\org\\example\\clerks.txt")) {
+        ArrayList<String> tmpclerk = new ArrayList<String>(); ///Array that will contain contents of the file
+        String ch = "-1"; ///Choise from the menu
+        try (FileReader reader = new FileReader("C:\\Users\\Bocus\\IdeaProjects\\Java-Study-01\\src\\main\\java\\org\\example\\clerks.txt")) { ///Reading the contents of the file
             Scanner scan = new Scanner(reader);
             while (scan.hasNext()){
                 tmpclerk.add(scan.nextLine());
@@ -44,7 +44,7 @@ public class ClerkEXE {
             ch = in.next();
             switch (ch) {
 
-                case "1": {
+                case "1": { ///Printing out clerk array element by element
                     tmpclerk.forEach(clerkk ->{
                         System.out.println(clerkk);
                     });
@@ -53,6 +53,7 @@ public class ClerkEXE {
                 case "2": {
                     ch="2";
                     try (FileWriter writer = new FileWriter("C:\\Users\\Bocus\\IdeaProjects\\Java-Study-01\\src\\main\\java\\org\\example\\clerks.txt")) {
+                        ///This is the writer needed to overwrite the existing file with clerks
                         System.out.println("""
                                 Hello, this is the clerk adding algorithm.
                                 To add clerk type "add".
@@ -64,19 +65,19 @@ public class ClerkEXE {
                                 System.out.println("""
                                         Type clerk info as follows:
                                         ID(String);Name(String);Birthday(Date);Salary(Double)""");
-                                String tmpdat = in.next()+"\n";
+                                String tmpdat = in.next()+"\n"; ///reading the clerks info to add to the array, \n is essential due to the formation of the file
                                 int c = 0;
                                 for (String clerkk : tmpclerk) {
                                     if (clerkk.contains(tmpdat.split(";")[0])) {
-                                        System.out.print("Err, ID already exists!");
+                                        System.out.print("Err, ID already exists!"); ///will occur if entry with this ID already exists
                                         c++;
                                     }
                                 }
                                 if (c == 0) {
-                                    tmpclerk.add(tmpdat);
+                                    tmpclerk.add(tmpdat);///adding new clerk to the clerk array
                                     tmpclerk.forEach(clerk ->{
                                         try {
-                                            writer.write(String.valueOf(clerk+"\n"));
+                                            writer.write(String.valueOf(clerk+"\n"));///overwriting the file
                                         } catch (IOException e) {
                                             throw new RuntimeException(e);
                                         }
@@ -105,10 +106,10 @@ public class ClerkEXE {
                 }
                 case "3": {
                     System.out.println("Type ID, name or birthday date of an employee:");
-                    ArrayList<String> outList = new ArrayList<String>();
+                    ArrayList<String> outList = new ArrayList<String>(); ///list for the all clerks with /filter (inchar) option in any or all of the characteristics
                     String inchar = in.next();
                     tmpclerk.forEach(clerkk ->{
-                        ///System.out.println("dot");
+                        ///System.out.println("dot"); ///I used this to test if clerks were added correctly
                         if (clerkk.contains(inchar)){
                             outList.add(clerkk);
                         }
@@ -123,7 +124,7 @@ public class ClerkEXE {
                         if (clerkk.contains(inchar)){
                             System.out.println("Type new info: Name;Birthday;Salary");
                             String alter = in.next();
-                            tmpclerk.set(tmpclerk.indexOf(clerkk), inchar+";"+alter);
+                            tmpclerk.set(tmpclerk.indexOf(clerkk), inchar+";"+alter); ///setting the new info clerk with current ID
                         }
                     }
                     try (FileWriter writer = new FileWriter("C:\\Users\\Bocus\\IdeaProjects\\Java-Study-01\\src\\main\\java\\org\\example\\clerks.txt")) {
@@ -146,7 +147,7 @@ public class ClerkEXE {
                     Double outSal = Double.valueOf(0);
                     for (String clerkk : tmpclerk){
                         outSal += Double.parseDouble(clerkk.split(";")[3]);
-                    }
+                    }///Summarising all the salaries, needed to add parseDouble as entries are String
                     System.out.println(outSal);
                     break;
                 }
