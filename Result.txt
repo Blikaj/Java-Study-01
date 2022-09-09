@@ -1,0 +1,6 @@
+Information about Input.txt
+The number of words: 15
+The number of Upper and lower symbols: 5:46
+The number of spaces: 13
+The number of int and double numbers: 3:1
+The number of punctuation marks: 5

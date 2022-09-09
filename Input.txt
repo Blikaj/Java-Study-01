@@ -1,0 +1,3 @@
+Numbers 12 33 2.3 7 My pattern
+I'm typing new text.
+My pattern Text isn't big.
