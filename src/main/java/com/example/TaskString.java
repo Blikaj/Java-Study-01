@@ -19,7 +19,8 @@ public class TaskString {
         createFile("Input.txt");
         String ch = "-1";
         while (ch != "8") {
-            System.out.print(
+            System.out.println("\n");
+            System.out.println(
                     """
                             ============Text Main Menu =============
                                                     
@@ -168,7 +169,7 @@ try {
         if(content.length() != 0){
             count ++;
             String[] analyze = content.split(" ");
-            for (String word : analyze ) {count++; System.out.println(word);}
+            for (String word : analyze ) {count++;}
         }
         System.out.println("The number of words: ");
         System.out.println(count);
