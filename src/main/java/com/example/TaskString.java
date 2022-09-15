@@ -265,6 +265,8 @@ try {
 
     private static Integer[] matchFind(String content, String patCont){
         Integer[] ind = new Integer[2];
+        patCont = patCont.toLowerCase();
+        content = content.toLowerCase();
         ind[0] = content.indexOf(patCont);
         ind[1] = ind[0];
         for (int index = content.indexOf(patCont);
@@ -279,7 +281,11 @@ try {
         ind[1] += patCont.length();
         String out = ind[0]+";"+ind[1];
         System.out.println("Index of first and last match");
-        System.out.println(out);
+        if ((!(ind[0] == -1) && !(ind[1] == 0))){
+            System.out.println(out);
+        } else {
+            System.out.println("MATCH NOT FOUND!");
+        }
         return ind;
     }
 
