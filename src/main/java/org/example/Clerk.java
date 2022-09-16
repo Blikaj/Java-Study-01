@@ -1,15 +1,13 @@
 package org.example;
 
-import java.util.Date;
-
 public class Clerk {
 
     private String ID;
     private String name;
-    private Date birthday;
+    private String birthday;
     private Double salary;
 
-    public Clerk(String ID, String name, Date birthday, Double salary) {
+    public Clerk(String ID, String name, String birthday, Double salary) {
         this.ID = ID;
         this.name = name;
         this.birthday = birthday;
@@ -32,11 +30,11 @@ public class Clerk {
         this.name = name;
     }
 
-    public Date getBirthday() {
+    public String getBirthday() {
         return birthday;
     }
 
-    public void setBirthday(Date birthday) {
+    public void setBirthday(String birthday) {
         this.birthday = birthday;
     }
 
@@ -46,6 +44,10 @@ public class Clerk {
 
     public void setSalary(Double salary) {
         this.salary = salary;
+    }
+
+    public void printInfo(){
+        System.out.println(getID() + ":" + getName() + ":" + getBirthday() + ":" + getSalary());
     }
 
 }

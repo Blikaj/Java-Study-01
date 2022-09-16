@@ -7,8 +7,6 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-import static java.lang.Integer.parseInt;
-
 public class ClerkEXE {
 
     public static void main(String[] args) {
@@ -20,7 +18,10 @@ public class ClerkEXE {
         try (FileReader reader = new FileReader("C:\\Users\\Bocus\\IdeaProjects\\Java-Study-01\\src\\main\\java\\org\\example\\clerks.txt")) { ///Reading the contents of the file
             Scanner scan = new Scanner(reader);
             while (scan.hasNext()){
-                tmpclerk.add(scan.nextLine());
+                String[] tmpinfo = (scan.nextLine().split(";"));
+                Clerk tmpclerkinfo = new Clerk(tmpinfo[0], tmpinfo[1], tmpinfo[2], Double.parseDouble(tmpinfo[3]));
+                tmpclerkinfo.setID(tmpinfo[0]);
+
             }
             reader.close();
 
@@ -51,7 +52,6 @@ public class ClerkEXE {
                     break;
                 }
                 case "2": {
-                    ch="2";
                     try (FileWriter writer = new FileWriter("C:\\Users\\Bocus\\IdeaProjects\\Java-Study-01\\src\\main\\java\\org\\example\\clerks.txt")) {
                         ///This is the writer needed to overwrite the existing file with clerks
                         System.out.println("""
@@ -164,6 +164,75 @@ public class ClerkEXE {
                 }
             }
         }
+
+    }
+
+    public void method1(ArrayList<Clerk> tmpclerk){
+        tmpclerk.forEach(clerkk ->{
+            clerkk.printInfo();
+        });
+    }
+    public void method2(ArrayList<Clerk> tmpclerk, Scanner in){
+        try (FileWriter writer = new FileWriter("C:\\Users\\Bocus\\IdeaProjects\\Java-Study-01\\src\\main\\java\\org\\example\\clerks.txt")) {
+            ///This is the writer needed to overwrite the existing file with clerks
+            System.out.println("""
+                                Hello, this is the clerk adding algorithm.
+                                To add clerk type "add".
+                                
+                                If you are done with adding new clerks, type 'done' """);
+            String inchar = in.next();
+            switch (inchar) {
+                case "add": {
+                    System.out.println("""
+                                        Type clerk info as follows:
+                                        ID(String);Name(String);Birthday(Date);Salary(Double)""");
+                    String tmpdat = in.next()+"\n"; ///reading the clerks info to add to the array, \n is essential due to the formation of the file
+                    int c = 0;
+                    for (Clerk clerkk : tmpclerk) {
+                        if (clerkk.getID() == tmpdat.split(";")[0]) {
+                            System.out.print("Err, ID already exists!"); ///will occur if entry with this ID already exists
+                            c++;
+                        }
+                    }
+                    if (c == 0) {
+                        String[] newdata = tmpdat.split(";");
+                        Clerk newclerk = new Clerk(newdata[0], newdata[1], newdata[2], Double.parseDouble(newdata[3]));
+                        tmpclerk.add(newclerk);///adding new clerk to the clerk array
+                        tmpclerk.forEach(clerk ->{
+                            try {
+                                writer.write(String.valueOf(clerk+"\n"));///overwriting the file
+                            } catch (IOException e) {
+                                throw new RuntimeException(e);
+                            }
+                        });
+                        System.out.print("Clerk added");
+                    }
+                    writer.close();
+                    break;
+                }
+                case "done": {
+                    writer.close();
+                    break;
+                }
+                default: {
+                    System.out.print("Wrong choise, my friend!");
+                    break;
+                }
+            }
+
+        } catch (FileNotFoundException e) {
+            throw new RuntimeException(e);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
+    public void method3(){
+
+    }
+    public void method4(){
+
+    }
+    public void method5(){
 
     }
 
